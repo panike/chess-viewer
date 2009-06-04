@@ -3,11 +3,14 @@ bin/
 *.swp
 *.[0-9]*
 *.log
-*.png
+*.pdf
 *.c
 *.h
 *.o
 *.a
+*.idx
+*.scn
+*.toc
 server/server
 tools/db2html
 tools/tagshtml
