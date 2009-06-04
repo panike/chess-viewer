@@ -1,18 +1,28 @@
 Here is how to use the system.
 
+First you create the images and place them where the web server can find them.
+
 First you have a pgn file, say games.pgn
 
 Then you ``compile'' it:
 
 compiler -f games.pgn -o games.db
 
-This command produces by default, ``dbfile'' and ``games_index.db''
+This command produces by default, ``dbfile'' and ``game_index.db''
+
+You should sort these:
+
+LC_ALL=C sort dbfile > temp; mv temp dbfile
+LC_ALL=C sort game_index.db > temp; mv temp game_index.db
 
 Then you might want to produce a html file to point to the server
 
 tagshtml -f dbfile -http 'http://localhost:3025'
 
+The files that are the output of this should be placed where your web server
+can find them.
+
 Finally you run the server
 
 server -images 'http://www.math.wisc.edu/~panike/chess' -p 3025 -log logfile \
-	-idx games_index.db
+	-idx game_index.db
