@@ -1,0 +1,15 @@
+bin/
+*.png
+*.swp
+*.[0-9]*
+*.log
+*.png
+*.c
+*.h
+*.o
+*.a
+server/server
+tools/db2html
+tools/tagshtml
+compiler/compiler
+images/all
