@@ -1,0 +1,18 @@
+Here is how to use the system.
+
+First you have a pgn file, say games.pgn
+
+Then you ``compile'' it:
+
+compiler -f games.pgn -o games.db
+
+This command produces by default, ``dbfile'' and ``games_index.db''
+
+Then you might want to produce a html file to point to the server
+
+tagshtml -f dbfile -http 'http://localhost:3025'
+
+Finally you run the server
+
+server -images 'http://www.math.wisc.edu/~panike/chess' -p 3025 -log logfile \
+	-idx games_index.db
