@@ -1,16 +1,24 @@
 #!/bin/bash
 
-convert chess-pieces.1 wwp.gif; convert chess-pieces.2 bwp.gif
-convert chess-pieces.3 wwr.gif; convert chess-pieces.4 bwr.gif
-convert chess-pieces.5 wwn.gif; convert chess-pieces.6 bwn.gif
-convert chess-pieces.7 wwb.gif; convert chess-pieces.8 bwb.gif
-convert chess-pieces.9 wwq.gif; convert chess-pieces.10 bwq.gif
-convert chess-pieces.11 wwk.gif; convert chess-pieces.12 bwk.gif
-convert chess-pieces.13 wbp.gif; convert chess-pieces.14 bbp.gif
-convert chess-pieces.15 wbr.gif; convert chess-pieces.16 bbr.gif
-convert chess-pieces.17 wbn.gif; convert chess-pieces.18 bbn.gif
-convert chess-pieces.19 wbb.gif; convert chess-pieces.20 bbb.gif
-convert chess-pieces.21 wbq.gif; convert chess-pieces.22 bbq.gif
-convert chess-pieces.23 wbk.gif; convert chess-pieces.24 bbk.gif
-convert chess-pieces.25 ws.gif
-convert chess-pieces.26 bs.gif
+gs_convert() {
+	echo $1 $2 ${2/png/eps}
+	gs -q -dEPSCrop -dSAFER -dNOPAUSE -dBATCH -sDEVICE=epswrite \
+	-sOutputFile=${2/png/eps} $1
+	gs -q -dEPSCrop -dSAFER -dNOPAUSE -dBATCH -sDEVICE=pnggray \
+	-sOutputFile=$2 ${2/png/eps}
+	rm ${2/png/eps}
+}
+gs_convert chess-pieces.1 wwp.png; gs_convert chess-pieces.2 bwp.png
+gs_convert chess-pieces.3 wwr.png; gs_convert chess-pieces.4 bwr.png
+gs_convert chess-pieces.5 wwn.png; gs_convert chess-pieces.6 bwn.png
+gs_convert chess-pieces.7 wwb.png; gs_convert chess-pieces.8 bwb.png
+gs_convert chess-pieces.9 wwq.png; gs_convert chess-pieces.10 bwq.png
+gs_convert chess-pieces.11 wwk.png; gs_convert chess-pieces.12 bwk.png
+gs_convert chess-pieces.13 wbp.png; gs_convert chess-pieces.14 bbp.png
+gs_convert chess-pieces.15 wbr.png; gs_convert chess-pieces.16 bbr.png
+gs_convert chess-pieces.17 wbn.png; gs_convert chess-pieces.18 bbn.png
+gs_convert chess-pieces.19 wbb.png; gs_convert chess-pieces.20 bbb.png
+gs_convert chess-pieces.21 wbq.png; gs_convert chess-pieces.22 bbq.png
+gs_convert chess-pieces.23 wbk.png; gs_convert chess-pieces.24 bbk.png
+gs_convert chess-pieces.25 ws.png
+gs_convert chess-pieces.26 bs.png

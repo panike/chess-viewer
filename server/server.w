@@ -228,7 +228,21 @@ if(!do_instructional_mode) {
 do_instructional_mode=0;
 @ @<Close the conn...@>=
 do_instructional_mode=0;
-@ @<We scan...@>=
+@ The |option_toks| variable contains options that modify the behavior of the
+server. The possible values of the options are contained in the following table.
+\smallskip
+\halign{&\tt#\ \hfil\cr
+textmode&instructional\cr
+movie&yes\cr
+rate&\rm$\langle\hbox{number}\rangle$\cr
+align&right\cr
+rotate&90,180,270\cr}
+
+These option are independent, so a URL can look like 
+\smallskip\centerline{\tt http://server/game/23?textmode=instructional\char`\&%
+align=right\char`\&rotate=90\rm.}\smallskip
+@^Document options for URLs@>
+@<We scan...@>=
 if(option_toks[0] && strcmp(option_toks[0],"textmode")==0
     && option_toks[1] && strcmp(option_toks[1],"instructional")==0)
     do_instructional_mode=1;
@@ -334,7 +348,7 @@ while(jj>0){
             case rotate0: default: kk=ii;@+ll=jj;@+break;
         }
         send_counter+=snprintf(&send_buf[send_counter],
-                send_buf_len-send_counter,"<td><img src=\"%s/%c%s.gif\">"
+                send_buf_len-send_counter,"<td><img src=\"%s/%c%s.png\">"
                 "</td>\n",http_image_sources,color_square(kk,ll),
                 piece_string(lookup_on_board(theboard,kk,ll)));
     }
