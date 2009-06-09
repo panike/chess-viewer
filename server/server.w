@@ -184,9 +184,10 @@ if(moveno<thegame.gme.nmoves-1) {
         send_counter+=snprintf(&send_buf[send_counter],
                 send_buf_len-send_counter, "?%s",modifier_string);
     send_counter+=snprintf(&send_buf[send_counter],send_buf_len-send_counter,
-            "\">Next &gt;&gt;");
+            "\">Next &gt;&gt;\n");
 }
-send_counter+=snprintf(&send_buf[send_counter],send_buf_len-send_counter,"\n");
+send_counter+=snprintf(&send_buf[send_counter],send_buf_len-send_counter,
+"</center>\n");
 @ An option here is to write only the current move.
 @^Formatting option@>
 @<Create the move text@>=
