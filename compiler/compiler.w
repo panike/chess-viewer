@@ -128,7 +128,7 @@ if(token_code != ORDINARY_TOKEN){
     fprintf(stdout,"Expected ORDINARY_TOKEN in state 1.\n");
     myexit(0);
 }
-strcpy(tagname,token);
+strcpy((char*)tagname,(char*)token);
 parser_state=2;
 @ We use these as temporary buffers to hold the value of tags.  In PGN, tags
 are the metadata associated to the game. The PGN standard says tags can be at
@@ -146,7 +146,7 @@ if(token_code != QUOTED_STRING){
     fprintf(stdout,"Expected QUOTED_STRING in state 2.\n");
     myexit(0);
 }
-strcpy(tagvalue,token);
+strcpy((char*)tagvalue,(char*)token);
 parser_state=3;
 @ @<Do cases for state 3@>=
 if(token_code != RIGHT_BRACKET){
@@ -276,10 +276,10 @@ we get the tokens.  The lexer is responsible for understanding the tokens.
 @<Global func...@>=
 int is_terminator(unsigned char* tok)
 {
-    return (strcmp(tok,"1-0")==0 ||
-        strcmp(tok,"0-1")==0 ||
-        strcmp(tok,"1/2-1/2") == 0 ||
-        strcmp(tok,"*")==0);
+    return (strcmp((char*)tok,"1-0")==0 ||
+        strcmp((char*)tok,"0-1")==0 ||
+        strcmp((char*)tok,"1/2-1/2") == 0 ||
+        strcmp((char*)tok,"*")==0);
 }
 @ @<Global vari...@>=
 unsigned char* filebuf;
@@ -578,12 +578,12 @@ int lex_token(unsigned char*,struct move_node*);
 @ @<Global func...@>=
 int is_castling(unsigned char*tok,struct move_node*mnode)
 {
-    if(strcmp(tok,"O-O")==0){
+    if(strcmp((char*)tok,"O-O")==0){
         mnode->piece=King;
         mnode->source_file='e'-'a';
         mnode->dest_file='g'-'a';
         return 1;
-    } else if(strcmp(tok,"O-O-O")==0){
+    } else if(strcmp((char*)tok,"O-O-O")==0){
         mnode->piece=King;
         mnode->source_file='e'-'a';
         mnode->dest_file='c'-'a';
@@ -1460,8 +1460,8 @@ unsigned char* get_random_word(void);
 @<Global vari...@>=
 int randomfd;
 unsigned char randbuf[RANDOM_WORD_LENGTH];
-unsigned char* random_char_lookup="abcdefghijklmnop"
-                        "qrstuvwxyz123456";
+unsigned char* random_char_lookup=(unsigned char*)("abcdefghijklmnop"
+                        "qrstuvwxyz123456");
 unsigned char rand_bit_buf[RANDOM_BIT_LENGTH];
 @ @<Initialize the program@>=
 randomfd=open("/dev/urandom",O_RDONLY);

@@ -36,16 +36,16 @@ while(p<fileend) {
 }
 @ @<Find the tags and game@>=
 @ @<Check |new_tagv...@>=
-if(!old_tagvalue || strcmp(old_tagvalue,new_tagvalue) != 0) {
+if(!old_tagvalue || strcmp((char*)old_tagvalue,(char*)new_tagvalue) != 0) {
     fprintf(outfile,"\n<br>%s: ",new_tagvalue);
 }
 @ @<Write the info...@>=
 fprintf(outfile,"<a href=\"%s/%s/\">%s</a> ",http_server_name,key,key);
 @ @<Check |new_tagname| against |old_tagname|@>=
-if(!old_tagname || strcmp(new_tagname,old_tagname) != 0){
+if(!old_tagname || strcmp((char*)new_tagname,(char*)old_tagname) != 0){
     @<Open a new file@>@;
     @<Write the header@>@;
-    old_tagvalue=(char*)0;
+    old_tagvalue=(unsigned char*)0;
 }
 @ @<Write the header@>=
 fprintf(outfile,"<html>\n<head>\n<title>%s</title>\n</head>\n",new_tagname);

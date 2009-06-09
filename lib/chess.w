@@ -239,7 +239,7 @@ unsigned char* copy_string(unsigned char* s)
     unsigned char* ret;
     int len;
 
-    len=strlen(s)+1;
+    len=strlen((char*)s)+1;
     ret=(unsigned char*)malloc(len*sizeof(unsigned char));
     if(ret)
         return memcpy(ret,s,len);
