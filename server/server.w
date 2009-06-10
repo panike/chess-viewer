@@ -186,6 +186,9 @@ if(do_movie != 0){
 @<User wants to hide or show move text@>@;
 @<User wants to change board alignment@>@;
 send_counter+=snprintf((char*)&send_buf[send_counter],
+    send_buf_len-send_counter,"<a href=\"/%s/%d\">Default</a>\n",
+	game_toks[0],moveno);
+send_counter+=snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"<a href=\"/shutdown\">Shutdown</a>\n");
 send_counter+=snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"</center>\n");
