@@ -175,6 +175,7 @@ if(modifier_string)
 else t_modifier_string=copy_string((unsigned char*)"");
 if(t_modifier_string)
     get_tokens(t_modifier_string,modifier_toks,10,'&');
+@ @<Modify other server behavior@>=
 @<User wants to start or stop movie@>@;
 @<User wants to rotate the board@>@;
 if(do_movie != 0){
@@ -185,6 +186,8 @@ if(do_movie != 0){
 }
 @<User wants to hide or show move text@>@;
 @<User wants to change board alignment@>@;
+@ We add options to return to default mode and to shutdown the server.
+@<Modify other server behavior@>=
 send_counter+=snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"<a href=\"/%s/%d\">Default</a>\n",
 	game_toks[0],moveno);
@@ -192,6 +195,8 @@ send_counter+=snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"<a href=\"/shutdown\">Shutdown</a>\n");
 send_counter+=snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"</center>\n");
+free(t_modifier_string);
+t_modifier_string=(unsigned char*)0;
 @ @<User wants to start or stop movie@>=
 send_counter += snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"<a href=\"/%s/%d",game_toks[0],moveno);
@@ -706,10 +711,7 @@ if(!toks[0] || (toks[0] && strcmp((char*)toks[0],"GET") != 0)){
     fflush(logfile);
     goto start_connection;
 }
-@ We remove the `\.{/}' characters from the URL. Note the \.{shutdown} command
-here. This command is alright because a game name will be 16 characters, and
-this is only 8.  If we go to 8-character-long names, we will change this to
-\.{shutdownnow} or something.
+@ We remove the `\.{/}' characters from the URL.
 @<Find the game@>=
 if(get_tokens(toks[1],game_toks,3,'/')) { /* Find the game name and options */
     shutdown(acceptfd,SHUT_RDWR);
@@ -731,7 +733,10 @@ for(ii=0;ii<3;++ii)
         fprintf(logfile,"Game Token %d: \"%s\".\n",ii,game_toks[ii]);
 fflush(logfile);
 #endif
-@ @<Find the game@>=
+@ Note the \.{shutdown} command here. This command is alright because a game
+name will be 16 characters, and this is only 8.  If we go to 8-character-long
+names, we will change this to \.{shutdownnow} or something.
+@<Find the game@>=
 @^Shutdown command@>
 if(game_toks[0] && strcmp((char*)game_toks[0],"shutdown")==0){
     fprintf(logfile,"OK, leaving since we received a shutdown command.\n");
