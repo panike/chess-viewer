@@ -190,7 +190,7 @@ if(do_movie != 0){
 @<Modify other server behavior@>=
 send_counter+=snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"<a href=\"/%s/%d\">Default</a>\n",
-	game_toks[0],moveno);
+    game_toks[0],moveno);
 send_counter+=snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"<a href=\"/shutdown\">Shutdown</a>\n");
 send_counter+=snprintf((char*)&send_buf[send_counter],
@@ -222,12 +222,14 @@ for(ms=modifier_toks;*ms;++ms){
     }
 }
 @ @<User wants to start or stop movie@>=
-if(modifier_count==0)
-    send_counter += snprintf((char*)&send_buf[send_counter],
+if(!do_movie){
+    if(modifier_count==0)
+        send_counter += snprintf((char*)&send_buf[send_counter],
             send_buf_len-send_counter,"?movie=yes");
-else if(modifier_put_counter>0){
-    send_counter += snprintf((char*)&send_buf[send_counter],
+    else if(modifier_put_counter>0){
+        send_counter += snprintf((char*)&send_buf[send_counter],
             send_buf_len-send_counter,"&movie=yes");
+    }
 }
 send_counter += snprintf((char*)&send_buf[send_counter],
     send_buf_len-send_counter,"\">%s movie</a>\n",
