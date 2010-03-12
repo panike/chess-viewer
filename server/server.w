@@ -931,10 +931,14 @@ fprintf(logfile,"\n-d for a daemon.\n\n");
 _exit(0);
 @ @<Initialize the program@>=
 port=atoi(port_no);
-listenfd=socket(PF_INET,SOCK_STREAM,0);
-if(listenfd<0){
+if((listenfd=socket(PF_INET,SOCK_STREAM,0))<0){
     fprintf(logfile,"Could not open the socket.\n");
     _exit(0);
+}
+ii=1;
+if(setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&ii,0)){
+	fprintf(logfile,"Error in setsockopt.\n");
+	_exit(0);	
 }
 @
 @s rlimit int
