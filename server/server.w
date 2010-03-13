@@ -936,7 +936,7 @@ if((listenfd=socket(PF_INET,SOCK_STREAM,0))<0){
     _exit(0);
 }
 ii=1;
-if(setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&ii,0)){
+if(setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&ii,sizeof(ii))){
 	fprintf(logfile,"Error in setsockopt.\n");
 	_exit(0);	
 }
