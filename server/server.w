@@ -950,6 +950,7 @@ if(daemonize)
     for(ii=0;ii<rlim.rlim_cur;++ii)
         if(ii != listenfd && ii != fileno(logfile))
             close(ii);
+    setsid();
     if(fork())
         _exit(0);
 }
