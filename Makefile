@@ -1,4 +1,5 @@
 clean:
+	/bin/rm -rf ./bin
 	for i in compiler images lib server tools; \
 	do \
 		make -C $$i clean; \
@@ -14,5 +15,8 @@ all:
 	then \
 		mkdir bin; \
 	fi
-	cp ./compiler/compiler ./tools/db2html \
-		./tools/tagshtml ./server/server ./bin
+	(cd bin; \
+	ln ../compiler/compiler; \
+	ln ../tools/db2html; \
+	ln ../tools/tagshtml; \
+	ln ../server/server)
